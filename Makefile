@@ -4,6 +4,8 @@ PRETTIER := node_modules/.bin/prettier
 
 CLEAN_FILES := dist $(wildcard src/schema/*.js)
 
+.PHONY: all
+all: schema prettier
 
 .PHONY: schema
 schema: \
