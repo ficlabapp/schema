@@ -1,6 +1,6 @@
 {
     "name": "@ficlabapp/schema",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "description": "",
     "repository": "github:ficlabapp/schema",
     "license": "ISC",
@@ -13,10 +13,11 @@
     "main": "./src/main.js",
     "type": "module",
     "devDependencies": {
-        "ajv": "^8.8.2",
         "ajv-cli": "^5.0.0",
         "ajv-formats": "^2.1.1",
         "prettier": "^2.5.1"
     },
-    "dependencies": {}
+    "dependencies": {
+        "ajv": "^8.8.2"
+    }
 }
