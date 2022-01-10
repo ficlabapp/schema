@@ -1,0 +1,134 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "provision",
+    "type": "object",
+    "properties": {
+        "internal": {
+            "type": "boolean",
+            "default": false,
+            "description": "True if provisioning failed, and the internal schema values are used"
+        },
+        "v0": {
+            "type": "object",
+            "description": "Old provisioning for FicLab v0.6.x",
+            "properties": {
+                "ffnet-delay-factor": {
+                    "type": "number",
+                    "default": 1
+                }
+            }
+        },
+        "default": {
+            "$ref": "settings#",
+            "default": {},
+            "description": "Default settings"
+        },
+        "analysis": {
+            "type": "string",
+            "format": "uri",
+            "minLength": 1,
+            "description": "API endpoint for story analysys"
+        },
+        "tosEpoch": {
+            "type": "integer",
+            "default": 0,
+            "description": "When the TOS was last updated"
+        },
+        "userSettingsEpoch": {
+            "type": "integer",
+            "default": 0,
+            "description": "Only allow user settings saved at or after this timestamp"
+        },
+        "userSettingsOverride": {
+            "type": "array",
+            "default": [],
+            "description": "Override saved user settings",
+            "items": {
+                "type": "object",
+                "default": {},
+                "description": "A single override rule",
+                "required": [
+                    "from",
+                    "fromVersion",
+                    "until",
+                    "untilVersion",
+                    "production",
+                    "origin",
+                    "context",
+                    "id",
+                    "set"
+                ],
+                "properties": {
+                    "from": {
+                        "type": "integer",
+                        "default": 0,
+                        "description": "Apply the rule beginning from this timestamp"
+                    },
+                    "fromVersion": {
+                        "type": "string",
+                        "default": "",
+                        "description": "Apply the rule beginning from this version"
+                    },
+                    "until": {
+                        "type": "integer",
+                        "default": 0,
+                        "description": "Apply the rule until this timestamp"
+                    },
+                    "untilVersion": {
+                        "type": "string",
+                        "default": "",
+                        "description": "Apply the rule until this version"
+                    },
+                    "production": {
+                        "type": "boolean",
+                        "default": true,
+                        "description": "Whether to apply this rule to production"
+                    },
+                    "origin": {
+                        "type": "array",
+                        "default": [],
+                        "description": "List of origins to apply the override for",
+                        "items": {
+                            "type": "string",
+                            "minLength": 1
+                        }
+                    },
+                    "context": {
+                        "type": "array",
+                        "default": [],
+                        "description": "List of contexts to apply the override for",
+                        "items": {
+                            "type": "string",
+                            "minLength": 1
+                        }
+                    },
+                    "id": {
+                        "type": "array",
+                        "default": [],
+                        "description": "List of client IDs to apply this override for",
+                        "items": {
+                            "type": "string",
+                            "minLength": 1
+                        }
+                    },
+                    "agent": {
+                        "type": "array",
+                        "default": [],
+                        "description": "List of user-agent regexes to apply this override for",
+                        "items": {
+                            "type": "string",
+                            "minLength": 1,
+                            "format": "regex"
+                        }
+                    },
+                    "set": {
+                        "type": "object",
+                        "default": {},
+                        "description": "Subset of settings object to merge"
+                    }
+                }
+            }
+        }
+    },
+    "required": ["internal", "default", "userSettingsEpoch"]
+}
