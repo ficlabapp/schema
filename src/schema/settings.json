@@ -1,0 +1,301 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "settings",
+    "$defs": {
+        "flag": {
+            "type": "boolean"
+        }
+    },
+    "type": "object",
+    "required": [
+        "timestamp",
+        "production",
+        "id",
+        "format",
+        "archive",
+        "services",
+        "cover",
+        "book",
+        "misc",
+        "tweaks",
+        "flags"
+    ],
+    "properties": {
+        "timestamp": {
+            "type": "integer",
+            "default": 0,
+            "description": "Timestamp when these settings were saved"
+        },
+        "production": {
+            "type": "boolean",
+            "default": true,
+            "description": "Whether FicLab is running in production mode"
+        },
+        "id": {
+            "type": "string",
+            "default": "",
+            "description": "Client ID"
+        },
+        "format": {
+            "type": "string",
+            "description": "Output file format",
+            "enum": ["epub", "mobi", "pdf", "md", "txt", "flb", "docx", "image", "html", "txt-tts"],
+            "default": "epub"
+        },
+        "archive": {
+            "type": "boolean",
+            "description": "Whether to participate in the archive project",
+            "default": false
+        },
+        "services": {
+            "type": "object",
+            "description": "Service API endpoints",
+            "default": {},
+            "required": ["transcode"],
+            "properties": {
+                "transcode": {
+                    "type": "string",
+                    "description": "Transcode API endpoint",
+                    "default": "wss://transcode.ficlab.com/1"
+                },
+                "archive": {
+                    "type": "string",
+                    "description": "Archive project API endpoint",
+                    "default": "wss://archive.l.ficlab.com:4443/v1"
+                }
+            }
+        },
+        "cover": {
+            "type": "object",
+            "description": "Cover image configuration",
+            "default": {},
+            "required": ["scheme", "crop", "dark", "logo", "title", "enable", "custom"],
+            "properties": {
+                "scheme": {
+                    "type": "string",
+                    "default": "auto",
+                    "description": "Colour scheme",
+                    "enum": [
+                        "auto",
+                        "red",
+                        "orange",
+                        "yellow",
+                        "green",
+                        "blue",
+                        "purple",
+                        "pink",
+                        "brown",
+                        "grey",
+                        "black",
+                        "clear"
+                    ]
+                },
+                "crop": {
+                    "type": "string",
+                    "default": "auto",
+                    "description": "Cropping mode for the supplied story image",
+                    "enum": ["auto", "on", "off", "fill"]
+                },
+                "dark": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Whether to use darker scheme colours"
+                },
+                "logo": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Whether to include the publisher logo on the cover"
+                },
+                "title": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Whether to render the title bar"
+                },
+                "enable": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Whether to generate a cover image at all"
+                },
+                "custom": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Custom cover image"
+                }
+            }
+        },
+        "book": {
+            "type": "object",
+            "default": {},
+            "description": "Book configuration",
+            "required": [
+                "tags",
+                "status",
+                "numbers",
+                "paragraph",
+                "font",
+                "size",
+                "summary",
+                "cleanPunctuation",
+                "smartQuotes",
+                "stripBreaks",
+                "detectBreaks",
+                "matchBreaks"
+            ],
+            "properties": {
+                "tags": {
+                    "type": "array",
+                    "default": [],
+                    "description": "Additional subject tags",
+                    "items": {
+                        "type": "string",
+                        "minLength": 1
+                    }
+                },
+                "status": {
+                    "type": "string",
+                    "default": "auto",
+                    "description": "Story completion status",
+                    "enum": ["auto", "complete", "in-progress", "hiatus", "abandoned"]
+                },
+                "numbers": {
+                    "type": "string",
+                    "default": "auto",
+                    "description": "Chapter numbering mode",
+                    "enum": ["auto", "on", "off"]
+                },
+                "paragraph": {
+                    "type": "string",
+                    "default": "space+indent",
+                    "description": "Paragraph separation mode",
+                    "enum": ["space+indent", "space", "indent"]
+                },
+                "font": {
+                    "type": "string",
+                    "default": "serif",
+                    "description": "Font family to use for body text",
+                    "enum": ["serif", "sans-serif"]
+                },
+                "size": {
+                    "type": "number",
+                    "default": 1,
+                    "description": "Scaling factor for body text"
+                },
+                "summary": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Story sumary / description"
+                },
+                "cleanPunctuation": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Automatically clean up punctuation"
+                },
+                "smartQuotes": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Use smart quotes"
+                },
+                "stripBreaks": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Remove section breaks"
+                },
+                "detectBreaks": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Attempt to automatically detect textual section breaks"
+                },
+                "matchBreaks": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Replace any matching paragraphs with a section break"
+                }
+            }
+        },
+        "misc": {
+            "type": "object",
+            "default": {},
+            "description": "Misc settings with no other logical home",
+            "required": ["abandonAfter"],
+            "properties": {
+                "abandonAfter": {
+                    "type": "integer",
+                    "default": 31557600,
+                    "minimum": 0,
+                    "description": "Number of seconds after which an in-progress story is considered abandoned"
+                }
+            }
+        },
+        "tweaks": {
+            "type": "object",
+            "default": {},
+            "description": "Various advanced controls",
+            "required": ["delayFactor", "backoff", "pause", "bucketSize", "bucketRate", "disable"],
+            "properties": {
+                "delayFactor": {
+                    "type": "number",
+                    "default": 0.05,
+                    "minimum": 0,
+                    "description": "Delay factor to apply to resource fetching"
+                },
+                "maxDelay": {
+                    "type": "number",
+                    "default": 20,
+                    "minimum": 0,
+                    "description": "Threshold beyond which the delay factor is considered an error"
+                },
+                "backoff": {
+                    "type": "number",
+                    "default": 1.5,
+                    "minimum": 1,
+                    "description": "Backoff to apply to delay factor on 429 error"
+                },
+                "pause": {
+                    "type": "number",
+                    "default": 10,
+                    "minimum": 0,
+                    "description": "How long to pause on 429 error"
+                },
+                "bucketSize": {
+                    "type": "number",
+                    "default": 20,
+                    "minimum": 0,
+                    "description": "Burst bucket size"
+                },
+                "bucketRate": {
+                    "type": "number",
+                    "default": 2,
+                    "minimum": 0,
+                    "description": "How fast the bucket refills (reqs/sec)"
+                },
+                "disable": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Disable downloads, with the provided error message"
+                },
+                "warning": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Display the provided warning message at idle-ready"
+                },
+                "gatherRecent": {
+                    "type": "integer",
+                    "default": 0,
+                    "description": "Gather metadata for recently published stories (0 to disable)"
+                }
+            }
+        },
+        "flags": {
+            "type": "object",
+            "default": {},
+            "description": "Feature flags (gatekeeper for development features)",
+            "required": ["debugDetectBreaks"],
+            "properties": {
+                "debugDetectBreaks": {
+                    "$ref": "#/$defs/flag",
+                    "default": false
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,29 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "request",
+    "type": "object",
+    "required": ["uuid", "originator", "url", "sameOrigin"],
+    "additionalProperties": false,
+    "properties": {
+        "uuid": {
+            "$comment": "Uniquely identifies the request",
+            "type": "string",
+            "format": "uuid"
+        },
+        "originator": {
+            "$comment": "Indicates the originator of the request",
+            "type": "string",
+            "enum": ["user", "archive"]
+        },
+        "url": {
+            "$comment": "URL to fetch",
+            "type": "string",
+            "format": "uri"
+        },
+        "sameOrigin": {
+            "$comment": "Whether to fetch this resource from the same origin context as the URL",
+            "type": "boolean",
+            "default": false
+        }
+    }
+}
