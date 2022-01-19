@@ -32,7 +32,7 @@ export class Schema extends Ajv {
             let camel = s[0].toUpperCase() + s.slice(1);
             Object.defineProperties(this, {
                 [`validate${camel}`]: {
-                    value: (data) => this.ajv.validate(schemas[s], data),
+                    value: (data) => this.validate(schemas[s], data),
                     writable: false,
                     enumerable: true,
                 },
