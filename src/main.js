@@ -1,21 +1,18 @@
 "use strict";
 
-import Ajv from "ajv";
-import ajvFormats from "ajv-formats";
-
 // schema definitions
-import requestSchema from "./schema/request.json";
-import settingsSchema from "./schema/settings.json";
-import provisionSchema from "./schema/provision.json";
-import bookDataSchema from "./schema/book-data.json";
+import validateRequest from "./schema/request.js";
+import validateSettings from "./schema/settings.js";
+import validateProvision from "./schema/provision.js";
+import validateBookData from "./schema/book-data.js";
 const schemas = {
-    request: requestSchema,
-    settings: settingsSchema,
-    provision: provisionSchema,
-    bookData: bookDataSchema,
+    request: validateRequest,
+    settings: validateSettings,
+    provision: validateProvision,
+    bookData: validateBookData,
 };
 
-export class Schema extends Ajv {
+export class Schema {
     constructor() {
         super({
             schemas,
@@ -32,7 +29,7 @@ export class Schema extends Ajv {
             let camel = s[0].toUpperCase() + s.slice(1);
             Object.defineProperties(this, {
                 [`validate${camel}`]: {
-                    value: (data) => this.validate(schemas[s], data),
+                    value: (data) => this.schemas[s](data),
                     writable: false,
                     enumerable: true,
                 },
@@ -45,9 +42,9 @@ export class Schema extends Ajv {
         }
     }
 
-    _clamp(schema, data, message) {
-        if (!this.validate(schema, data)) {
-            const err = this.errors[0];
+    _clamp(validateFn, data, message) {
+        if (!validateFn(data)) {
+            const err = validateFn.errors[0];
             throw new Error(`${message} (${err.instancePath || "/"}): ${err.message}`);
         }
     }

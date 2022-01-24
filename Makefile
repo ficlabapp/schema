@@ -5,20 +5,19 @@ WEBPACK := node_modules/.bin/webpack
 SCHEMA_FILES := $(wildcard src/schema/*.json)
 
 .PHONY: all
-all: prettier validate
+all: prettier validate $(patsubst %.json,%.js,$(SCHEMA_FILES))
 
 .PHONY: prettier
 prettier:
 	$(PRETTIER) **/*.js **/*.json
 
+.PHONY: clean
+clean:
+	rm -rfv src/schema/*.js
+
 .PHONY: validate
 validate:
 	$(MAKE) -B $(SCHEMA_FILES)
 
-.PHONY: src/schema/%.json
-src/schema/%.json:
-	$(AJV) -s $@
-
-.PHONY: src/schema/provision.json
-src/schema/provision.json: src/schema/settings.json
-	$(AJV) -r src/schema/settings.json -s $@
+src/schema/%.js: src/schema/%.json
+	$(AJV) $(patsubst %,-r %,$(filter-out $<,$(SCHEMA_FILES))) -s $< -o $@
