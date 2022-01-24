@@ -14,17 +14,6 @@ const schemas = {
 
 export class Schema {
     constructor() {
-        super({
-            schemas,
-            strict: true,
-            validateSchema: false,
-            useDefaults: true,
-            coerceTypes: true,
-            removeAdditional: "all",
-            allowUnionTypes: true,
-        });
-        ajvFormats(this);
-
         for (let s in schemas) {
             let camel = s[0].toUpperCase() + s.slice(1);
             Object.defineProperties(this, {
