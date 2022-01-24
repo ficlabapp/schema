@@ -1,4 +1,4 @@
-AJV := node_modules/.bin/ajv compile --spec=draft2020 --strict=true --allow-union-types -c ajv-formats
+AJV := node_modules/.bin/ajv compile --spec=draft2020 --strict=true --allow-union-types --remove-additional=all --use-defaults=empty --coerce-types=true -c ajv-formats
 PRETTIER := node_modules/.bin/prettier --write
 WEBPACK := node_modules/.bin/webpack
 
