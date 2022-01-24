@@ -18,7 +18,7 @@ export class Schema {
             let camel = s[0].toUpperCase() + s.slice(1);
             Object.defineProperties(this, {
                 [`validate${camel}`]: {
-                    value: (data) => this.schemas[s](data),
+                    value: (data) => schemas[s](data),
                     writable: false,
                     enumerable: true,
                 },
