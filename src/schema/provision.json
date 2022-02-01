@@ -23,12 +23,6 @@
             "default": {},
             "description": "Default settings"
         },
-        "analysis": {
-            "type": "string",
-            "format": "uri",
-            "minLength": 1,
-            "description": "API endpoint for story analysys"
-        },
         "tosEpoch": {
             "type": "integer",
             "default": 0,
