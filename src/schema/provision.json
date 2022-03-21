@@ -8,16 +8,6 @@
             "default": false,
             "description": "True if provisioning failed, and the internal schema values are used"
         },
-        "v0": {
-            "type": "object",
-            "description": "Old provisioning for FicLab v0.6.x",
-            "properties": {
-                "ffnet-delay-factor": {
-                    "type": "number",
-                    "default": 1
-                }
-            }
-        },
         "default": {
             "$ref": "settings#",
             "default": {},
