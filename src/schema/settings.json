@@ -12,8 +12,7 @@
         "production",
         "id",
         "format",
-        "archive",
-        "services",
+        "service",
         "cover",
         "book",
         "misc",
@@ -42,12 +41,7 @@
             "enum": ["epub", "mobi", "pdf", "md", "txt", "flb", "docx", "image", "html", "txt-tts"],
             "default": "epub"
         },
-        "archive": {
-            "type": "boolean",
-            "description": "Whether to participate in the archive project",
-            "default": false
-        },
-        "services": {
+        "service": {
             "type": "object",
             "description": "Service API endpoints",
             "default": {},
@@ -57,11 +51,6 @@
                     "type": "string",
                     "description": "Transcode API endpoint",
                     "default": "wss://transcode.ficlab.com/1"
-                },
-                "archive": {
-                    "type": "string",
-                    "description": "Archive project API endpoint",
-                    "default": "wss://archive.l.ficlab.com:4443/v1"
                 }
             }
         },
