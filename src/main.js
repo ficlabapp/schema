@@ -1,12 +1,10 @@
 "use strict";
 
 // schema definitions
-import validateRequest from "./schema/request.cjs";
 import validateSettings from "./schema/settings.cjs";
 import validateProvision from "./schema/provision.cjs";
 import validateBookData from "./schema/book-data.cjs";
 const schemas = {
-    request: validateRequest,
     settings: validateSettings,
     provision: validateProvision,
     bookData: validateBookData,
