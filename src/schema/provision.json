@@ -8,6 +8,11 @@
             "default": false,
             "description": "True if provisioning failed, and the internal schema values are used"
         },
+        "retrieved": {
+            "type": "integer",
+            "default": 0,
+            "description": "Timestamp when the provisioning data was retrieved"
+        },
         "default": {
             "$ref": "settings#",
             "default": {},
