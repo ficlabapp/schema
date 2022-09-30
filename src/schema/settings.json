@@ -11,8 +11,8 @@
         "timestamp",
         "production",
         "id",
-        "format",
         "service",
+        "format",
         "cover",
         "book",
         "misc",
@@ -35,24 +35,29 @@
             "default": "",
             "description": "Client ID"
         },
+        "service": {
+            "type": "object",
+            "description": "Remote service endpoints",
+            "default": {},
+            "required": ["latest"],
+            "properties": {
+                "latest": {
+                    "type": "string",
+                    "description": "Latest-stories metadata submission",
+                    "default": "https://www.ficlab.com/latest"
+                }
+            }
+        },
         "format": {
             "type": "string",
             "description": "Output file format",
             "enum": ["epub", "mobi", "pdf", "md", "txt", "flb", "docx", "image", "html", "txt-tts"],
             "default": "epub"
         },
-        "service": {
-            "type": "object",
-            "description": "Service API endpoints",
-            "default": {},
-            "required": ["transcode"],
-            "properties": {
-                "transcode": {
-                    "type": "string",
-                    "description": "Transcode API endpoint",
-                    "default": "wss://transcode.ficlab.com/1"
-                }
-            }
+        "reviews": {
+            "type": "boolean",
+            "default": false,
+            "description": "Also download reviews and include them as an additional chapter"
         },
         "cover": {
             "type": "object",
@@ -70,6 +75,7 @@
                         "orange",
                         "yellow",
                         "green",
+                        "teal",
                         "blue",
                         "purple",
                         "pink",
@@ -128,7 +134,8 @@
                 "smartQuotes",
                 "stripBreaks",
                 "detectBreaks",
-                "matchBreaks"
+                "matchBreaks",
+                "sqStyle"
             ],
             "properties": {
                 "tags": {
@@ -198,6 +205,12 @@
                     "type": "string",
                     "default": "",
                     "description": "Replace any matching paragraphs with a section break"
+                },
+                "sqStyle": {
+                    "type": "string",
+                    "default": "smart",
+                    "description": "Smartquote style",
+                    "enum": ["smart", "english", "german", "french"]
                 }
             }
         },
@@ -257,6 +270,18 @@
                     "minimum": 0,
                     "description": "How fast the bucket refills (reqs/sec)"
                 },
+                "tooManyReviewPagesThreshold": {
+                    "type": "integer",
+                    "default": 600,
+                    "minimum": 0,
+                    "description": "How many review pages are considered too many?"
+                },
+                "warnAboutReviewsThreshold": {
+                    "type": "integer",
+                    "default": 3000,
+                    "minimum": 0,
+                    "description": "Threshold at which the user should be warned about the review count"
+                },
                 "disable": {
                     "type": "string",
                     "default": "",
@@ -266,11 +291,6 @@
                     "type": "string",
                     "default": "",
                     "description": "Display the provided warning message at idle-ready"
-                },
-                "gatherRecent": {
-                    "type": "integer",
-                    "default": 0,
-                    "description": "Gather metadata for recently published stories (0 to disable)"
                 }
             }
         },
