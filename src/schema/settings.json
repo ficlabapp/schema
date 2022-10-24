@@ -13,6 +13,8 @@
         "id",
         "service",
         "format",
+        "filename",
+        "reviews",
         "cover",
         "book",
         "misc",
@@ -51,8 +53,25 @@
         "format": {
             "type": "string",
             "description": "Output file format",
-            "enum": ["epub", "mobi", "pdf", "md", "txt", "flb", "docx", "image", "html", "txt-tts"],
+            "enum": [
+                "epub",
+                "mobi",
+                "pdf",
+                "md",
+                "txt",
+                "flb",
+                "docx",
+                "image",
+                "html",
+                "txt-tts",
+                "azw3"
+            ],
             "default": "epub"
+        },
+        "filename": {
+            "type": "string",
+            "description": "Output filename",
+            "default": "%author% - %title%"
         },
         "reviews": {
             "type": "boolean",
@@ -127,6 +146,7 @@
                 "status",
                 "numbers",
                 "paragraph",
+                "justify",
                 "font",
                 "size",
                 "summary",
@@ -164,6 +184,11 @@
                     "default": "space+indent",
                     "description": "Paragraph separation mode",
                     "enum": ["space+indent", "space", "indent"]
+                },
+                "justify": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Whether to justify the body text"
                 },
                 "font": {
                     "type": "string",
